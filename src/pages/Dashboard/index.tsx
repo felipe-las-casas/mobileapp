@@ -37,34 +37,34 @@ export function Dashboard() {
     const cpfValidation = cpf === "000" ||
     cpf === "100" ||
     cpf === "200" 
-   
-    await spendingCreate(data);
-    if (
-      cpfValidation &&
-      product != "" &&
-      saleValue != "" &&
-      dateValue != ""
-    ) {
-      setCpf("");
-      setSaleValue("");
-      setProduct("");
-      setDateValue("")
-      const result = await spendingGetAll();
-      console.log(result);
-    } 
-
-    if (!cpfValidation) {
-      Alert.alert(
-        "Preencha com um CPF válido"
-      );
-    }
     
-    else {
-      Alert.alert(
+    if( product == "" ||
+    saleValue == "" ||
+    dateValue == "") {
+      return Alert.alert(
         "Preencha os campos corretamente"
       );
+      
     }
-  }
+    if (!cpfValidation) {
+      return Alert.alert(
+        "Preencha com um CPF válido"
+        );
+      }  
+      
+    await spendingCreate(data);
+    const result = await spendingGetAll();
+    setCpf("");
+    setSaleValue("");
+    setProduct("");
+    setDateValue("")
+    console.log(result);
+      
+      
+    
+    }
+    
+  
 
   return (
     <Container>
